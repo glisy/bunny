@@ -1,0 +1,11 @@
+{
+  "name": "scripts",
+  "version": "0.0.1",
+  "private": true,
+  "main": "index.js",
+  "author": "Joseph Werle <werle@littlstar.com>",
+  "dependencies": {
+    "bunny": "^1.0.1",
+    "gl-vec3": "^1.0.3"
+  }
+}

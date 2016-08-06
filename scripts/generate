@@ -1,0 +1,58 @@
+#!/usr/bin/env node
+'use strict'
+
+/**
+ * Module dependencies.
+ */
+
+const normalize = require('gl-vec3/normalize')
+const bunny = require('bunny')
+const path = require('path')
+const fs = require('fs')
+
+const OUTPUT_HEADER = process.env.OUTPUT_HEADER || path.resolve(
+  __dirname, '../include/glisy/bunny.h'
+)
+
+const carray = (input) => `{${input.join(', ')}}, `
+const positions = () => bunny.positions
+const normals = () => bunny.positions.map(p => normalize([], p))
+const cells = () => bunny.cells
+const uvs = () => normals().map(n => [n[0], n[1]])
+
+const kPositionsCount = positions().length
+const kPositionsSize = 3 * kPositionsCount
+const kCellsCount = cells().length
+const kCellsSize = 3 * kCellsCount
+
+/**
+ * Generates header
+ */
+
+const template = () => `
+#ifndef GLISY_STANFORD_BUNNY_H
+#define GLISY_STANFORD_BUNNY_H
+
+#define GILSY_STANFORD_BUNNY_POSITIONS_COUNT ${kPositionsCount}
+#define GILSY_STANFORD_BUNNY_CELLS_COUNT ${kCellsCount}
+
+#define GLISY_STANFORD_BUNNY_POSITIONS_SIZE ${kPositionsSize} * sizeof(float)
+#define GLISY_STANFORD_BUNNY_CELLS_SIZE ${kCellsSize} * sizeof(unsigned short)
+
+const struct StanfordBunny {
+  float positions[${kPositionsCount}][3];
+  float normals[${kPositionsCount}][3];
+  float uvs[${kPositionsCount}][3];
+  unsigned short cells[${kCellsCount}][3];
+} StanfordBunny = {
+  .positions = {${positions().map(carray).join('')}},
+  .normals = {${normals().map(carray).join('')}},
+  .cells = {${cells().map(carray).join('')}},
+  .uvs = {${uvs().map(carray).join('')}},
+};
+#endif
+`
+
+console.log("Output header: %s", OUTPUT_HEADER)
+fs.writeFileSync(OUTPUT_HEADER, template())
+console.log(template())
