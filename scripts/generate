@@ -33,11 +33,11 @@ const template = () => `
 #ifndef GLISY_STANFORD_BUNNY_H
 #define GLISY_STANFORD_BUNNY_H
 
-#define GILSY_STANFORD_BUNNY_POSITIONS_COUNT ${kPositionsCount}
-#define GILSY_STANFORD_BUNNY_CELLS_COUNT ${kCellsCount}
+#define STANFORD_BUNNY_POSITIONS_COUNT ${kPositionsCount}
+#define STANFORD_BUNNY_CELLS_COUNT ${kCellsCount}
 
-#define GLISY_STANFORD_BUNNY_POSITIONS_SIZE ${kPositionsSize} * sizeof(float)
-#define GLISY_STANFORD_BUNNY_CELLS_SIZE ${kCellsSize} * sizeof(unsigned short)
+#define STANFORD_BUNNY_POSITIONS_SIZE ${kPositionsSize} * sizeof(float)
+#define STANFORD_BUNNY_CELLS_SIZE ${kCellsSize} * sizeof(unsigned short)
 
 const struct StanfordBunny {
   float positions[${kPositionsCount}][3];
