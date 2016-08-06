@@ -24,7 +24,7 @@ const normals = () => normalize(positions().reduce((a, p) => a.concat(p), []))
 }, [])
 
 const cells = () => bunny.cells
-const uvs = () => normals().map(n => [n[0], n[1]])
+const uvs = () => positions().map(n => [n[0], n[1]])
 
 const kPositionsCount = positions().length
 const kPositionsSize = 3 * kPositionsCount
