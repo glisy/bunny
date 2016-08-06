@@ -6,6 +6,7 @@
   "author": "Joseph Werle <werle@littlstar.com>",
   "dependencies": {
     "bunny": "^1.0.1",
+    "face-normals": "0.0.0",
     "gl-vec3": "^1.0.3"
   }
 }
