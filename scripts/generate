@@ -5,7 +5,7 @@
  * Module dependencies.
  */
 
-const normalize = require('gl-vec3/normalize')
+const normalize = require('face-normals')
 const bunny = require('bunny')
 const path = require('path')
 const fs = require('fs')
@@ -16,7 +16,13 @@ const OUTPUT_HEADER = process.env.OUTPUT_HEADER || path.resolve(
 
 const carray = (input) => `{${input.join(', ')}}, `
 const positions = () => bunny.positions
-const normals = () => bunny.positions.map(p => normalize([], p))
+const normals = () => normalize(positions().reduce((a, p) => a.concat(p), []))
+.reduce((a, x, i, j) => {
+  if (0 == i % 3 ) { a.push([x]) }
+  else { a[a.length - 1][i % 3] = x }
+  return a
+}, [])
+
 const cells = () => bunny.cells
 const uvs = () => normals().map(n => [n[0], n[1]])
 
