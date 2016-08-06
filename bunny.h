@@ -8,7 +8,7 @@
 #define STANFORD_BUNNY_POSITIONS_SIZE 3 * STANFORD_BUNNY_POSITIONS_COUNT * sizeof(float)
 #define STANFORD_BUNNY_CELLS_SIZE 3 * STANFORD_BUNNY_CELLS_COUNT * sizeof(unsigned int)
 
-const struct {
+const struct StanfordBunny {
   float positions[STANFORD_BUNNY_POSITIONS_COUNT][3];
   GLushort cells[STANFORD_BUNNY_CELLS_COUNT][3];
 } StanfordBunny = {
